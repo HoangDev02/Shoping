@@ -1,0 +1,23 @@
+    <div class="row">
+        <div class="register-login">
+             <h1 class="logo-register">register</h1>
+            <form action="/auth/register" method="POST" >
+                <div id="username">
+                    <label for="username">username:</label>
+                    <input type="text" class="username" name="username" required>
+                </div>
+                <div id="email">
+                    <label for="email">Email:</label>
+                    <input type="email" class="email" name="email" required>
+                </div>
+                <div id="password">
+                    <label for="password">passsword:</label>
+                    <input type="password" class="password" name="password" required>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="submit" class="btn btn-outline-success">register</button>
+                </div>
+            </form>
+            <a href="/auth/login" class="create">login</a>
+        </div>
+    </div>
