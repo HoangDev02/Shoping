@@ -35,7 +35,7 @@ const cardControll = {
         cart.products.push({ product_Id: product_Id , quantity});
       }
       cart = await cart.save();
-      return res.status(201).send(cart);
+      return res.status(201).json(cart);
     } else {
       const newCart = await Cart.create({
         userId,

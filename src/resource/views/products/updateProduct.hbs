@@ -1,0 +1,23 @@
+<div class="mt-4">
+    <h3>Cập nhật sản phẩm</h3>
+
+    <form method="post" action="/product/update/{{product._id}}?_method=PUT">
+    <div class="mb-3">
+        <label for="name">tên sản phẩm</label>
+        <input type="text" class="form-control" id="name" name="name" value={{product.name}}>
+    </div>
+    <div class="mb-3">
+        <label for="description">Mô tả</label>
+        <input type="text" class="form-control " id="description" name="description" value={{product.description}}>
+    </div>
+    <div class="mb-3">
+        <label for="img" >img</label>
+        <input type="text" class="form-control" id="img" name="img" value={{product.img}}>
+    </div>
+    <div class="mb-3">
+        <label for="price">Price</label>
+        <input type="text" class="form-control" id="price" name="price" value={{product.price}}>
+    </div>
+    <button type="submit" class="btn btn-primary">Cập nhật ngay</button>
+    </form>
+</div>

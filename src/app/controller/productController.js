@@ -1,34 +1,38 @@
 const product = require('../models/products')
-
+const {mongooseToObject} = require('../../../utils/mongoose')
 const productController = {
+
+    create: async(req,res,next) => {
+        res.render('products/createProduct')
+    },
     //post
     createProduct: async(req,res,next) => {
         const newProduct = new product(req.body);
         try {
-            const savedProduct = await newProduct.save()
-            res.status(200).json(savedProduct)
+            await newProduct.save()
+            res.status(200).redirect('/')
         } catch(err) {
             next(err)
         }
     },
+    editProduct: async(req,res,next) => {
+        product.findById(req.params.id)
+        .then(product => res.render('products/updateProduct', {
+            product: mongooseToObject(product)
+        }))
+        .catch(next)
+    },
     //put
     updateProduct: async(req,res,next) => {
-        try {
-            const updateProduct = await product.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true});
-            res.status(200).json(updateProduct)
-
-        }catch (err) {
-            next(err)
-        }
+        product.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+        .then(() => res.redirect('/'))
+        .catch(next)
     },
     //delete
     deleteProduct: async(req,res,next) => {
-        try {
-        await product.findByIdAndDelete(req.params.id);
-        res.status(200).json("product has been delete.")
-        }catch(err) {
-            next(err)
-        }
+        product.findByIdAndDelete(req.params.id)
+        .then(() =>res.redirect('back'))
+        .catch(next)
     },
     //get
     getProduct: async(req,res,next) => {
@@ -48,7 +52,6 @@ const productController = {
             next(err)
         }
     }
-
 }
 
 module.exports =  productController;

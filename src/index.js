@@ -10,12 +10,16 @@ const methodOverride = require('method-override')
 const passport = require('passport')
 const handlebars = require('express-handlebars');
 
+//router
 const auth = require('./router/auth')
 const site = require('./router/site')
 const product = require('./router/product')
 const categories = require('./router/categories')
 const card = require('./router/card')
+const allProduct = require('./router/productAdmin')
 const port = 3000
+
+//dowlaod all .env
 dotenv.config();
 
 
@@ -33,7 +37,6 @@ mongoose.connection.on("disconnect", ()=> {
 })
  
 app.use(cookieParser())
-app.use(express.json())
 
 //hbs
 app.engine('hbs', 
@@ -58,18 +61,15 @@ app.use(session({
 }))
 
 app.use(methodOverride('_method'))
-
-
 app.use(morgan('combined'))
 //router
 app.use('/auth', auth)
 app.use('/product', product)
+app.use('/', site)
 app.use('/categories', categories)
 app.use('/card', card)
-//test
-app.get('/', function(req, res) {
-  res.render('home');
-});
+app.use('/allproduct', allProduct)
+
 
 app.listen(port, () => {
   connect()
