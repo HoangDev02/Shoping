@@ -35,14 +35,16 @@ const productController = {
         .catch(next)
     },
     //get
-    getProduct: async(req,res,next) => {
-        try {
-           const products = await product.findById(req.params.id)
-           res.status(200).json(products)
-        }catch(err) {
-            next(err)
-        }
-    },
+    getProduct: async (req, res) => {
+        await product.find()
+        .then((products) => {
+          products = products.map((product) => product.toObject());
+          console.log(products);
+          res.render('products/showProduct', {
+            products: products,
+          });
+        });
+      },
     //get
     getProducts: async(req,res,next) => {
         try {
