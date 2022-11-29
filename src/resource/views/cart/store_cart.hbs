@@ -1,0 +1,69 @@
+<form class="mt-4" name="container-form" method="post">
+
+    <table class="table mt-4">
+        <thead>
+            <th>sản phẩm</th>
+            <th>số lượng</th>
+            <th>giá</th>
+            <th>Chức năng</th>
+        </thead>
+        <tbody>
+              {{#each cart.products}}
+            <tr class="cart-center">
+                <th scope="row"><img src={{this.img}} alt="hinh" class="cartImg">{{this.name}}</src></th>
+                {{!-- <th scope="row">{{this.product_Id}}</th> --}}
+                <td>{{this.quantity}}</td>
+                <td>{{this.price}}</td>
+                
+             
+              {{else}}
+              không có sản phẩm nào trong giỏ hàng
+
+           
+              {{/each}}
+              {{#with cart}}
+              <td>
+                    {{!-- <a href="/product/{{this._id}}/edit" class="btn bnt-link">sửa</a> --}}
+                    <a href=" " class="btn btn-link" data-bs-toggle="modal" data-id="{{this.userId}}" data-bs-target="#delete-cart-modal">Xóa</a>
+                </td>
+              {{/with}}
+               </tr>
+        </tbody>
+    </table>
+</form>
+
+<div id="delete-cart-modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa sản phẩm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc xóa sản phẩm này</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+        <button id="btn-delete-cart" type="button" class="btn btn-primary">Xóa bỏ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form  method="post" name="delete-cart-form">
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    var deleteForm = document.forms['delete-cart-form']
+    var btnDeleteCart = document.getElementById('btn-delete-cart')
+    $('#delete-cart-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) 
+        cartId = button.data('id')
+  });
+  btnDeleteCart.onclick = function () {
+        alert(cartId);
+        deleteForm.action = '/cart/' + cartId + '?_method=DELETE'
+        deleteForm.submit(); 
+  }
+  })
+</script>

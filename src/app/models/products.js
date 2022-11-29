@@ -6,6 +6,10 @@ const products = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "tbl_categories_products",
         },
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
         name: {
             type: String,
         },

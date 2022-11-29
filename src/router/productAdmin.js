@@ -1,7 +1,8 @@
 const  express = require('express')
 const router = express.Router()
-const allProductControll = require('../app/controller/allProductController')
+const StoreProductControll = require('../app/controller/ProductAdminController')
+const middleware = require('../app/middleware/middleware')
 
-router.get('/' , allProductControll.index)
+router.get('/' ,StoreProductControll.index)
 
 module.exports = router

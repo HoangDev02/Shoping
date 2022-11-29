@@ -1,10 +1,11 @@
-<form class="mt-4" name="container-form" method="post">
+<div class="container">
+  <form class="mt-4" name="container-form" method="post">
 
     <table class="table mt-4">
         <thead>
             <th>ID</th>
             <th>Name Product</th>
-            <th>quality</th>
+            <th>price</th>
             {{!-- <th>Số lượng</th> --}}
         </thead>
         <tbody>
@@ -54,7 +55,9 @@
   btnDeleteProduct.onclick = function () {
         alert("Xóa thành công");
         deleteForm.action = '/product/' + productId + '?_method=DELETE'
-        deleteForm.submit(); //submit cái form delete-course-form
+        deleteForm.submit(); 
   }
   })
 </script>
+
+</div>

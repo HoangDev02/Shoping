@@ -14,6 +14,7 @@ const CartSchema = new mongoose.Schema(
         },
         quantity: Number,
         name: String,
+        img: String,
         price: Number
       }
     ],
@@ -24,9 +25,8 @@ const CartSchema = new mongoose.Schema(
     modifiedOn: {
       type: Date,
       default: Date.now
-    }
-  },
-  { timestamps: true }
-);
+    },
+    __v: { type: Number, select: false }
+  });
 
 module.exports = mongoose.model("Cart", CartSchema);

@@ -6,10 +6,10 @@ const createError = require('../../../utils/error')
 
 const authController = {
     register: async (req,res,next) =>  {
-        res.render('account/register' ,  {layout: false})
+        res.render('account/register')
     },
     login: async (req,res,next) => {
-        res.render('account/login',  {layout: false})
+        res.render('account/login')
     },
     isregister : async (req, res,next) => {
         try {
@@ -34,16 +34,17 @@ const authController = {
             const isPassWordCorrect = await bcrypt.compare(req.body.password, user.password)
             if(!isPassWordCorrect) return next(createError(400, "wrong password or username"))
 
-             const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT_ACCESS_KEY, { expiresIn: "30s"})
+             const token = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.JWT_ACCESS_KEY, { expiresIn: "360s"})
              const {password, isAdmin, ...otherDetails} = user._doc
              res.cookie("access_token", token,{
                  httpOnly: true,
              }).status(200).redirect('/')
 
+
         }catch(err) {
             next(err)
         }
-    }
+    },
 }
 
 module.exports = authController;

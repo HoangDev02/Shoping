@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const cardControll = require('../app/controller/cardController')
-
-router.get('/', cardControll.getCart);
-router.get('/:id', cardControll.getCarts);
-router.post('/create', cardControll.addCart)
-
-module.exports = router
+const cartControll = require('../app/controller/cardController')
+const middleware = require('../app/middleware/middleware')
+router.get('/:userId' ,cartControll.getCart);
+router.get('/', cartControll.getCarts) 
+router.post('/:userId', cartControll.addCart)
+router.delete('/:userId', cartControll.deleteCart)
+module.exports = router 

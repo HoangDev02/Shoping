@@ -12,11 +12,13 @@ const handlebars = require('express-handlebars');
 
 //router
 const auth = require('./router/auth')
-const site = require('./router/site')
+// const site = require('./router/site')
 const product = require('./router/product')
 const categories = require('./router/categories')
 const card = require('./router/card')
-const allProduct = require('./router/productAdmin')
+const productadmin = require('./router/productAdmin')
+const home = require("./router/home");
+
 const port = 3000
 
 //dowlaod all .env
@@ -52,6 +54,7 @@ app.engine('hbs',
   //chuyen doi text qua json
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
 app.use(session({
@@ -63,12 +66,12 @@ app.use(session({
 app.use(methodOverride('_method'))
 app.use(morgan('combined'))
 //router
+app.use('/', home)
 app.use('/auth', auth)
 app.use('/product', product)
-app.use('/', site)
 app.use('/categories', categories)
-app.use('/card', card)
-app.use('/allproduct', allProduct)
+app.use('/cart', card)
+app.use('/productAdmin', productadmin)
 
 
 app.listen(port, () => {
