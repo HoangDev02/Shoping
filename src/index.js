@@ -12,12 +12,13 @@ const handlebars = require('express-handlebars');
 
 //router
 const auth = require('./router/auth')
-// const site = require('./router/site')
+
 const product = require('./router/product')
 const categories = require('./router/categories')
 const card = require('./router/card')
 const productadmin = require('./router/productAdmin')
 const home = require("./router/home");
+const user = require("./router/user");
 
 const port = 3000
 
@@ -67,6 +68,7 @@ app.use(methodOverride('_method'))
 app.use(morgan('combined'))
 //router
 app.use('/', home)
+app.use('/', user)
 app.use('/auth', auth)
 app.use('/product', product)
 app.use('/categories', categories)

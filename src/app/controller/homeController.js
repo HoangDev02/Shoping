@@ -1,11 +1,12 @@
 const Product = require("../models/products");
+const jwt = require('jsonwebtoken');
 
 const homeController = {
   getHomePage: async (req, res) => {
     await Product.find()
     .then((products) => {
       products = products.map((product) => product.toObject());
-      console.log(products);
+      // console.log(products);
       res.render("home", {
         products: products,
       });
@@ -13,14 +14,26 @@ const homeController = {
   },
   getDetail: async (req, res) => {
     const { id } = req.params;
-    await Product.findById(id).then((product) => {
+    await Product.findById(id)
+    .then((product) => {
       product = product.toObject();
-      console.log(product);
+      // console.log(product);
       res.render("detail", {
         product,
       });
     });
   },
+  getUser: async(req,res,next) => {
+    const token = req.cookies.access_token
+    const kq =jwt.verify(token, process.env.JWT_ACCESS_KEY)
+    var idToken = kq.id
+    res.render('home', {
+        idToken: idToken
+    })
+
+    console.log(idToken)
+  
+}
 };
 
 module.exports = homeController;

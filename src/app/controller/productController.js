@@ -1,5 +1,5 @@
 const product = require('../models/products')
-const {mongooseToObject} = require('../../../utils/mongoose')
+const {mongooseToObject,mutipleMongooseToObject} = require('../../../utils/mongoose')
 const productController = {
 
     create: async(req,res,next) => {
@@ -38,10 +38,8 @@ const productController = {
     getProduct: async (req, res) => {
         await product.find()
         .then((products) => {
-          products = products.map((product) => product.toObject());
-          console.log(products);
           res.render('products/showProduct', {
-            products: products,
+            products: mutipleMongooseToObject(products),
           });
         });
       },
@@ -53,7 +51,24 @@ const productController = {
         }catch(err) {
             next(err)
         }
-    }
+    },
+    productSearch: async(req,res,next) => {
+       await product.find({
+            "$or":[
+                {name:{$regex:req.params.key}},
+                {description:{$regex:req.params.key}}
+            ]
+        })
+        .then((products) => {
+          res.render('products/showProduct', {
+            products: mutipleMongooseToObject(products),
+          })
+        })
+        .catch(error => {
+          next(error)
+        }) 
+        
+      } 
 }
 
 module.exports =  productController;

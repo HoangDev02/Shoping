@@ -9,7 +9,7 @@ const middleware = {
         }
         jwt.verify(token,process.env.JWT_ACCESS_KEY, (err, user)=> {
             if(err)  return next(createError(403,"Token is not valid!:"))
-            req.user  = user;
+            req.user = user;
             next()  
         }) 
     },
@@ -32,6 +32,6 @@ const middleware = {
     
             }
         })
-    }
+    },
 }
 module.exports = middleware
