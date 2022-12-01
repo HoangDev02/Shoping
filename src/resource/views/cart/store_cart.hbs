@@ -1,4 +1,5 @@
-<form class="mt-4" name="container-form" method="post">
+<div class="container">
+  <form class="mt-4" name="container-form" method="post">
     <table class="table mt-4">
         <thead>
             <th>sản phẩm</th>
@@ -9,12 +10,10 @@
         <tbody>
               {{#each cart.products}}
             <tr class="cart-center">
-                <th scope="row"><img src={{this.img}} alt="hinh" class="cartImg">{{this.name}}</src></th>
-                {{!-- <th scope="row">{{this.product_Id}}</th> --}}
-                <td>{{this.quantity}}</td>
+                {{!-- <th scope="row"><img src={{this.img}} alt="hinh" class="cartImg">{{this.name}}</src></th> --}}
+                <th scope="row">{{this.name}}</th>
+                <td><input type="number" value="{{this.quantity}}"></td>
                 <td>{{this.price}}</td>
-                
-                
               {{else}}
               không có sản phẩm nào trong giỏ hàng
 
@@ -29,6 +28,10 @@
         </tbody>
     </table>
 </form>
+
+<div>
+  <h2>Tổng giá tiền: </h2>
+</div>
 
 <div id="delete-cart-modal" class="modal" tabindex="-1">
   <div class="modal-dialog">
@@ -46,6 +49,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <form  method="post" name="delete-cart-form">

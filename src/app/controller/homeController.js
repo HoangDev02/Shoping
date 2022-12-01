@@ -30,8 +30,6 @@ const homeController = {
     res.render('home', {
         idToken: idToken
     })
-
-    console.log(idToken)
   
 }
 };

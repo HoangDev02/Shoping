@@ -68,7 +68,7 @@ app.use(methodOverride('_method'))
 app.use(morgan('combined'))
 //router
 app.use('/', home)
-app.use('/', user)
+app.use('/user', user)
 app.use('/auth', auth)
 app.use('/product', product)
 app.use('/categories', categories)

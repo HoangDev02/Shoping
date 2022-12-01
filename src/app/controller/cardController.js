@@ -1,6 +1,8 @@
 const { isValidObjectId } = require('mongoose');
 const Cart = require('../models/card')
 const User = require('../models/user')
+const jwt = require('jsonwebtoken');
+
 const {mutipleMongooseToObject, mongooseToObject} = require('../../../utils/mongoose')
 
 const cardControll = {
@@ -37,7 +39,6 @@ const cardControll = {
     if(!use || !isValidObjectId(userId) || !userId) {
       res.status(404).send("wrong use")
     }
-
     const {product_Id, quantity, name, price, img} = req.body;
     try {
         let cart = await Cart.findOne({userId: userId});
@@ -48,17 +49,17 @@ const cardControll = {
         productItem.quantity = quantity;
         cart.products[itemIndex] = productItem;
       } else {
-        cart.products.push({ product_Id: product_Id , quantity, name,price, img});
+        cart.products.push({ product_Id: product_Id , quantity, name,price,img});
       }
       cart = await cart.save();
-      return res.status(201).json(cart);
+      return res.status(201).redirect('/back');
     } else {
       const newCart = await Cart.create({
         userId,
-        products: [{ product_Id: product_Id, quantity, name, price, img}]
+        products: [{ product_Id: product_Id, quantity, name, price}]
       });
 
-      return res.status(201).send(newCart);
+      return res.status(201).redirect('/back');
     }
     } catch (err) {
         next(err)
@@ -85,7 +86,16 @@ const cardControll = {
     res
     .status(400)
     .send({ status: false, message: "Item does not exist in cart" });
-  }
+  },
+  // getUser: async(req,res,next) => {
+  //   const token = req.cookies.access_token
+  //   const kq =jwt.verify(token, process.env.JWT_ACCESS_KEY)
+  //   var idToken = kq.id
+  //   res.render('detail', {
+  //       idToken: idToken
+  //   })
+  //   console.log(idToken)
+  // }
 
 }
 
