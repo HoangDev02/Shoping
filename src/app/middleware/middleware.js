@@ -1,15 +1,18 @@
 const jwt = require('jsonwebtoken')
+const MyUtil = require('../../../utils/error')
 const { createError } =   require('../../../utils/error')
 const middleware = {
 
     verifyToken: (req,res,next) => {
         const token =  req.cookies.access_token;
         if(!token) {
-            return res.status(401).send("you're not login")
-
+            MyUtil.showAlertAndRedirect(res, 'You are not logged in', '/')
         }
         jwt.verify(token,process.env.JWT_ACCESS_KEY, (err, user)=> {
-            if(err) res.status(403).send("token is value!")
+            if(err) {
+                MyUtil.showAlertAndRedirect(res, 'token does not exist', '/')
+
+            }
 
             req.user = user;
             next()  
@@ -20,8 +23,7 @@ const middleware = {
             if(req.user.id === req.params.id  ||  req.user.isAdmin){
                 next()
             }else {
-                res.status(401).send("you do not have access")
-    
+              MyUtil.showAlertAndRedirect(res, 'you do not have access', '/')
             }
         })
     },
@@ -30,9 +32,7 @@ const middleware = {
             if(req.user.isAdmin){
                 next()
             }else {
-                -res.status(401).send("you do not have access")
-
-    
+                MyUtil.showAlertAndRedirect(res, 'you do not have access', '/')
             }
         })
     },
