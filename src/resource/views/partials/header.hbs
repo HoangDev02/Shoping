@@ -28,7 +28,7 @@
                            <a class="nav-link" href="/">Contact</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="/cart/{{idToken}}">
+                           <a class="nav-link" href="/cart/cartUser">
                               <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                  <g>
                                     <g>
@@ -88,15 +88,15 @@
                            <i class="fa fa-search" aria-hidden="true"></i>
                            </button>
                         </form>
-                        {{#if user}}
+                        {{!-- {{#if idToken}} --}}
                             <li class="nav-item">
-                              <a class="nav-link" href="/auth/login">{{this.username}}</a>
+                              <a class="nav-link" href="/auth/login">{{idToken}}</a>
                            </li>
-                        {{else}}
+                        {{!-- {{else}} --}}
                            <li class="nav-item">
                               <a class="nav-link" href="/auth/login">Login</a>
                            </li>
-                        {{/if}}
+                        {{!-- {{/if}} --}}
                      </ul>
                   </div>
                </nav>

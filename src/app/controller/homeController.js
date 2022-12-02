@@ -26,12 +26,13 @@ const homeController = {
   getUser: async(req,res,next) => {
     const token = req.cookies.access_token
     const kq =jwt.verify(token, process.env.JWT_ACCESS_KEY)
-    var idToken = kq.id
-    res.render('home', {
+    var idToken = kq.username
+    res.render('partials/header', {
         idToken: idToken
     })
   
 }
+  
 };
 
 module.exports = homeController;

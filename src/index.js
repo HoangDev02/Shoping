@@ -18,7 +18,7 @@ const categories = require('./router/categories')
 const card = require('./router/card')
 const productadmin = require('./router/productAdmin')
 const home = require("./router/home");
-const user = require("./router/user");
+
 
 const port = 3000
 
@@ -46,7 +46,7 @@ app.engine('hbs',
   handlebars.engine({
   extname: '.hbs',
   helpers: {
-  
+    sum: (a, b) => a+ b
   }
 }));
   app.set('view engine', 'hbs');
@@ -68,7 +68,6 @@ app.use(methodOverride('_method'))
 app.use(morgan('combined'))
 //router
 app.use('/', home)
-app.use('/user', user)
 app.use('/auth', auth)
 app.use('/product', product)
 app.use('/categories', categories)

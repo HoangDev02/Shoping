@@ -14,7 +14,7 @@
 <!-- product section -->
 <section class="product_section layout_padding" >
   <div class="container">
-    <form action="/cart/6384e8370083a61577f41cf2" method="post">
+    <form action="/cart/cartUser" method="post">
           <div class="heading_container heading_center">
           <h2>
             Product
@@ -25,17 +25,19 @@
           <div class="card_image">
             <input type="image" id="image" alt="hinh"  src={{product.img}} name="img" value="{{product.img}}">
           </div>
-          <div class="card_content">
+          <div class="card_content text-center">
             <div style="width: 100%;">
               Mã giày:<input name="product_Id" value="{{product._id}}" readonly>
               Tên giày:<input name="name" value="{{product.name}}" readonly>
-              Tên giày:<input name="price" value="{{product.price}} "readonly>
-              Tên giày:<input name="quantity" type="number" value="1">
+              Giá giày:<input name="price" value="{{product.price}} "readonly>
+              số lượng mua:<input name="quantity" type="number" value="1">
               <p>description: {{product.description}}</p>
             </div>
-            <button type="submit" class="option2">
+            <div class="d-grid gap-2 col-6 mx-auto">
+               <button type="submit" class="btn btn-outline-primary">
               Buy Now
             </button>
+            </div>
           </div>
         </div>
     </form>

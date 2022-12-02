@@ -15,7 +15,10 @@ const CartSchema = new mongoose.Schema(
         quantity: Number,
         name: String,
         img: String,
-        price: Number
+        price: Number,
+        total: {
+          type: Number,
+        },
       }
     ],
     active: {
@@ -25,6 +28,10 @@ const CartSchema = new mongoose.Schema(
     modifiedOn: {
       type: Date,
       default: Date.now
+    },
+    subtotal: {
+      type: Number,
+      default: 0,
     },
     __v: { type: Number, select: false }
   });

@@ -1,10 +1,7 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-const createError = require('../../../utils/error')
-
-
-
+const bcrypt = require('bcrypt')    
+const MyUtil = require('../../../utils/error')
 const authController = {
     register: async (req,res,next) =>  {
         res.render('account/register')
@@ -31,10 +28,15 @@ const authController = {
     islogin  : async(req,res,next) => {
         try {
             const user = await User.findOne({username:req.body.username})            
-            if(!user) return next(createError(404, createError("wrong usename")))
+            // if(!user) res.status(404).send('wrong user')
+            if(!user){
+                MyUtil.showAlertAndRedirect(res, 'Invalid login!', '/auth/login');
+            }
             const isPassWordCorrect = await bcrypt.compare(req.body.password, user.password)
-            if(!isPassWordCorrect) return next(createError(400, "wrong password or username"))
-            const payload ={id: user._id, isAdmin: user.isAdmin}
+            if(!isPassWordCorrect){
+                MyUtil.showAlertAndRedirect(res, 'wrong password or username', '/auth/login')
+            }
+            const payload ={username: user.username,id: user._id, isAdmin: user.isAdmin}
             const token = jwt.sign(payload, process.env.JWT_ACCESS_KEY, { expiresIn: "360s"})
              res.cookie("access_token", token,{
                  httpOnly: true,

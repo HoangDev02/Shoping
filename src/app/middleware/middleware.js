@@ -5,10 +5,12 @@ const middleware = {
     verifyToken: (req,res,next) => {
         const token =  req.cookies.access_token;
         if(!token) {
-            return next(createError(401,"you are not authenticated!:"))
+            return res.status(401).send("you're not login")
+
         }
         jwt.verify(token,process.env.JWT_ACCESS_KEY, (err, user)=> {
-            if(err)  return next(createError(403,"Token is not valid!:"))
+            if(err) res.status(403).send("token is value!")
+
             req.user = user;
             next()  
         }) 
@@ -18,7 +20,7 @@ const middleware = {
             if(req.user.id === req.params.id  ||  req.user.isAdmin){
                 next()
             }else {
-                res.status(401).json("you're not authenticated")
+                res.status(401).send("you do not have access")
     
             }
         })
@@ -28,7 +30,8 @@ const middleware = {
             if(req.user.isAdmin){
                 next()
             }else {
-                if(err)  return next(createError(403,"You are not authorized!"))
+                -res.status(401).send("you do not have access")
+
     
             }
         })

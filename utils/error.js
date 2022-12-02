@@ -1,7 +1,11 @@
-const createError = (status,message) => {
-    const err = new Error()
-    err.status= status;
-    err.message = message;
-    return err;
-};
-module.exports = createError
+
+const  MyUtil = {
+    showAlertAndRedirect(response, msg, url) {
+      var script = "<script type='text/javascript'>";
+      script += "alert('" + msg + "');";
+      script += "location='" + url + "';";
+      script += "</script>";
+      response.send(script);
+    },
+}
+module.exports= MyUtil
