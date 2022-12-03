@@ -1,11 +1,11 @@
 const product = require('../models/products')
 const {mongooseToObject,mutipleMongooseToObject} = require('../../../utils/mongoose')
 const productController = {
-
+    //admin  //get 
     create: async(req,res,next) => {
         res.render('products/createProduct')
     },
-    //post
+    //admin  //post  
     createProduct: async(req,res,next) => {
         const newProduct = new product(req.body);
         try {
@@ -52,13 +52,28 @@ const productController = {
             next(err)
         }
     },
+    search: async (req, res) => {
+        await product.find(
+            {
+                "$or": [
+                    {name:{$regex:req.query.search}},
+                ]
+            }
+        )
+        .then((products) => {
+          res.render('products/showProduct', {
+            products: mutipleMongooseToObject(products),
+          });
+        });
+      },
     productSearch: async(req,res,next) => {
-       await product.find({
-            "$or":[
+        product.find(
+        {
+            "$or": [
                 {name:{$regex:req.params.key}},
-                {description:{$regex:req.params.key}}
             ]
-        })
+        }
+        )
         .then((products) => {
           res.render('products/showProduct', {
             products: mutipleMongooseToObject(products),
@@ -67,8 +82,9 @@ const productController = {
         .catch(error => {
           next(error)
         }) 
-        
-      } 
+    }
+  
+    
 }
 
 module.exports =  productController;

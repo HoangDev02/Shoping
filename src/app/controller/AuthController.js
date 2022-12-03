@@ -45,6 +45,10 @@ const authController = {
             next(err)
         }
     },
+    // isLogOut : async (req,res,next) => {
+    //     delete req.Cookie.access_token
+    //     res.redirect('/')
+    // }
 }
 
 module.exports = authController;

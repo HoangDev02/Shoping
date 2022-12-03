@@ -1,10 +1,12 @@
 
 <section class="product_section layout_padding">
   <div class="container">
-    <form class="d-flex"  action="/product/all/" role="search" method="get">
-      <input class="form-control me-2" type="search" placeholder="search" aria-label="search" name="search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+    
+    <form class="d-flex"  action="/product/search" role="search" method="get">
+      <input class="form-control text-center" type="text" placeholder="search" aria-label="search" name="search" style="text-transform: uppercase;">
+      <button class="btn btn-outline-danger " type="submit" style="height: 38px;text-align: center; margin-left: 10px;">Search</button>
     </form>
+    
     <div class="heading_container heading_center">
       <h2>
         Our
@@ -13,6 +15,7 @@
     </div>
     
     <div class="row">
+      
       {{#each products}}
         <div class="col-sm-6 col-md-4 col-lg-4">
           <div class="box">

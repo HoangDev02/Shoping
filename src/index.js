@@ -16,8 +16,8 @@ const auth = require('./router/auth')
 const product = require('./router/product')
 const categories = require('./router/categories')
 const card = require('./router/card')
-const productadmin = require('./router/productAdmin')
 const home = require("./router/home");
+const admin = require("./router/admin");
 
 
 const port = 3000
@@ -72,8 +72,7 @@ app.use('/auth', auth)
 app.use('/product', product)
 app.use('/categories', categories)
 app.use('/cart', card)
-app.use('/productAdmin', productadmin)
-
+app.use('/admin', admin)
 
 app.listen(port, () => {
   connect()

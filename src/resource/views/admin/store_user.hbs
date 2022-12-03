@@ -9,14 +9,14 @@
             {{!-- <th>Số lượng</th> --}}
         </thead>
         <tbody>
-          {{#each product}}
+          {{#each user}}
             <tr>
                 <th scope="row">{{this._id}}</th>
-                <td>{{this.name}}</td>
-                <td>{{this.price}}</td>
+                <td>{{this.username}}</td>
+                {{!-- <td>{{this.price}}</td> --}}
                 <td>
-                    <a href="/product/{{this._id}}/edit" class="btn bnt-link">sửa</a>
-                    <a href=" " class="btn btn-link" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-product-modal">Xóa</a>
+                    <a href="/admin/user/{{this._id}}/edit" class="btn bnt-link">sửa</a>
+                    <a href=" " class="btn btn-link" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-user-modal">Xóa</a>
                 </td>
             </tr>
             {{/each}}
@@ -24,7 +24,7 @@
     </table>
 </form>
 
-<div id="delete-product-modal" class="modal" tabindex="-1">
+<div id="delete-user-modal" class="modal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -36,25 +36,24 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
-        <button id="btn-delete-product" type="button" class="btn btn-primary">Xóa bỏ</button>
+        <button id="btn-delete-user" type="button" class="btn btn-primary">Xóa bỏ</button>
       </div>
     </div>
   </div>
 </div>
 
-<form  method="post" name="delete-product-form">
-
+<form  method="post" name="delete-user-form">
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    var deleteForm = document.forms['delete-product-form']
-    var btnDeleteProduct = document.getElementById('btn-delete-product')
-    $('#delete-product-modal').on('show.bs.modal', function (event) {
+    var deleteForm = document.forms['delete-user-form']
+    var btnDeleteProduct = document.getElementById('btn-delete-user')
+    $('#delete-user-modal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) 
-        productId = button.data('id')
+        userId = button.data('id')
   });
   btnDeleteProduct.onclick = function () {
         alert("Xóa thành công");
-        deleteForm.action = '/product/' + productId + '?_method=DELETE'
+        deleteForm.action = '/admin/user/' + userId + '?_method=DELETE'
         deleteForm.submit(); 
   }
   })

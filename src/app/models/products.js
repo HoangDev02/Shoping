@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const slug = require('mongoose-slug-generator');
+
 
 const products = new mongoose.Schema(
     {
@@ -12,9 +14,12 @@ const products = new mongoose.Schema(
         },
         name: {
             type: String,
+            required: true
         },
         description: {
             type: String,
+            required: true
+
         },
         img: {
             type: String,     
@@ -25,4 +30,6 @@ const products = new mongoose.Schema(
         }
     },  { timestamps: true }
 )
+mongoose.plugin(slug);
+
   module.exports =  mongoose.model("tbl_product", products);

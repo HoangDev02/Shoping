@@ -10,11 +10,6 @@ const cardControll = {
   getCart: async (req,res,next) => {
 
     const userId = req.body.userId
-    // const use = User.exists({_id: userId})
-
-    // if(!use || !isValidObjectId(userId) || !userId) {
-    //   res.status(404).send("wrong use")
-    // }
     Cart.findOne({userId: userId})
     .then((cart) => {
       res.render('cart/store_cart', {
@@ -33,12 +28,6 @@ const cardControll = {
   },
   //Post
   addCart: async (req,res,next) => {
-    // let userId = req.params.userId
-    // let use = await User.exists({_id: userId})
-
-    // if(!use || !isValidObjectId(userId) || !userId) {
-    //   res.status(404).send("wrong use")
-    // }
     const {userId,product_Id, quantity, name, price, img} = req.body;
     try {
         let cart = await Cart.findOne({userId: userId});

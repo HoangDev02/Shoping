@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="mt-4">
+    <h3>Cập nhật sản phẩm</h3>
+
+    <form method="post" action="/admin/user/update/{{user._id}}?_method=PUT">
+    <div class="mb-3">
+        <label for="name">username</label>
+        <input type="text" class="form-control" id="name" name="name" value={{user.username}}>
+    </div>
+    <div class="mb-3">
+        <label for="email">email</label>
+        <input type="text" class="form-control " id="description" name="email" value={{user.email}}>
+    </div>
+    <button type="submit" class="btn btn-primary">Cập nhật ngay</button>
+    </form>
+</div>
+</div>
